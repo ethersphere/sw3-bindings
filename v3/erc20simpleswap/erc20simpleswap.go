@@ -1653,11 +1653,14 @@ func (_ERC20SimpleSwap *ERC20SimpleSwapCaller) HardDeposits(opts *bind.CallOpts,
 		Timeout          *big.Int
 		CanBeDecreasedAt *big.Int
 	})
+	if err != nil {
+		return *outstruct, err
+	}
 
-	outstruct.Amount = out[0].(*big.Int)
-	outstruct.DecreaseAmount = out[1].(*big.Int)
-	outstruct.Timeout = out[2].(*big.Int)
-	outstruct.CanBeDecreasedAt = out[3].(*big.Int)
+	outstruct.Amount = *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+	outstruct.DecreaseAmount = *abi.ConvertType(out[1], new(*big.Int)).(**big.Int)
+	outstruct.Timeout = *abi.ConvertType(out[2], new(*big.Int)).(**big.Int)
+	outstruct.CanBeDecreasedAt = *abi.ConvertType(out[3], new(*big.Int)).(**big.Int)
 
 	return *outstruct, err
 
